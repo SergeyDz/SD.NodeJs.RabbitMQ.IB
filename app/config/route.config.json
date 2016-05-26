@@ -1,0 +1,14 @@
+{
+  "routes": [
+    {
+      "route": "/v1/health",
+      "method": "GET",
+      "controller": "../controllers/v1/common/health-controller"
+    },
+    {
+      "route": "/v1/rabbit/consumer",
+      "method": "GET",
+      "controller": "../controllers/v1/rabbit/consumer-controller"
+    }
+  ]
+}

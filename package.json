@@ -1,0 +1,39 @@
+{
+  "name": "SD.NodeJs.Kafka",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "test-coverage": "npm test && istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "install-local": "npm install -g mocha & npm install -g node-inspector & npm install",
+    "start": "node server.js 1 prod 127.0.0.1 3000 9000",
+    "debug": "node-debug server.js 0 dev 127.0.0.1 3000 9000"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "amqplib": "latest",
+    "bunyan": "latest",
+    "bunyan-elasticsearch": "latest"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cluster-service": "^2.0.0-alpha4",
+    "express": "^4.13.4",
+    "amqplib": "latest",
+    "bunyan": "latest",
+    "bunyan-elasticsearch": "latest"
+  }
+}
