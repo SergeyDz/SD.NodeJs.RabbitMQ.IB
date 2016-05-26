@@ -1,4 +1,7 @@
 var settingsConfig = require('./app/config/settings/settings-config');
+var log = require('./Log.js').Log;
+
+log.info('started');
 
 if(settingsConfig.settings.clusterEnabled === 1) {
   require('cluster-service').start({ workers: './app/config/worker-config.js',

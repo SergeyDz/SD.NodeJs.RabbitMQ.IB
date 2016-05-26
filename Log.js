@@ -11,7 +11,7 @@ esStream.on('error', function (err) {
 
  
 var log = bunyan.createLogger({
-  name: "sqs.consumer",
+  name: "rabbit.ib.rest",
   streams: [
     { stream: process.stdout },
     { stream: esStream }

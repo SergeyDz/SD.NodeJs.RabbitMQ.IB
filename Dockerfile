@@ -13,7 +13,7 @@ RUN     apt-get -y install npm
 COPY . /
 # Install app dependencies
 
-EXPOSE 9200
+EXPOSE 9000
 
 RUN  npm install
 
