@@ -17,4 +17,4 @@ EXPOSE 9000
 
 RUN  npm install
 
-ENTRYPOINT ["nodejs", "server.js"]
+ENTRYPOINT ["nodejs", "worker.js"]

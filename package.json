@@ -26,15 +26,16 @@
     "sinon": "^1.17.3",
     "amqplib": "latest",
     "bunyan": "latest",
+    "express": "latest",
     "wait.for": "latest",
     "bunyan-elasticsearch": "latest"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
     "cluster-service": "^2.0.0-alpha4",
-    "express": "^4.13.4",
     "amqplib": "latest",
     "bunyan": "latest",
+    "express": "latest",
     "wait.for": "latest",
     "bunyan-elasticsearch": "latest"
   }
