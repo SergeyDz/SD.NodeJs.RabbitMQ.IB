@@ -16,6 +16,12 @@ function get(req, res, next) {
         var ok = conn.createChannel();
         log.info('RabbitMq connection established.');
         ok = ok.then(function (ch) {
+            
+            setTimeout(function dropHttpConnection(params) {
+                ch.close();
+                res.status(202).json({ "status": "No results" });
+            }, 60000);
+            
             ch.assertQueue(q);
             ch.consume(q, function (msg) {
                 if (msg !== null) {
