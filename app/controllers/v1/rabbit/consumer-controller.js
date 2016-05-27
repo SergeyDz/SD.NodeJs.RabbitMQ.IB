@@ -20,7 +20,7 @@ function get(req, res, next) {
             setTimeout(function dropHttpConnection(params) {
                 ch.close();
                 res.status(202).json({ "status": "No results" });
-            }, 60000);
+            }, 30000);
             
             ch.assertQueue(q);
             ch.consume(q, function (msg) {
