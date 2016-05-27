@@ -10,18 +10,14 @@ var mq = 'amqp://guest:guest@10.1.1.231:5672';
 function get(req, res, next) {
     log.info('Get detected');
 
-    var open = amqplib.connect(mq);
-
-    open.then(function (conn) {
-        var ok = conn.createChannel();
-        log.info('RabbitMq connection established.');
-        ok = ok.then(function (ch) {
-            
-            setTimeout(function dropHttpConnection(params) {
-                ch.close();
-                res.status(202).json({ "status": "No results" });
-            }, 30000);
-            
+    function consumer(conn) {
+        var ok = conn.createChannel(on_open);
+        function on_open(err, ch) {
+            if (err != null) {
+                log.error(err);
+                res.status(500).json(err);
+            }
+                       
             ch.assertQueue(q);
             ch.consume(q, function (msg) {
                 if (msg !== null) {
@@ -29,14 +25,20 @@ function get(req, res, next) {
                     log.info(entity);
                     ch.ack(msg);
                     ch.close();
-                    res.status(200).json(entity);
+                    return res.status(200).json(entity);
                 }
             });
-        });
-    }).then(null, function onerror(err) {
-        log.error(err);
-        res.status(500).json(err);
+        }
+    }
+
+    require('amqplib/callback_api').connect(mq, function (err, conn) {
+        if (err != null) {
+            log.error(err);
+            res.status(500).json(err);
+        }
+        consumer(conn);
     });
+
 };
 
 ConsumerController.prototype = {

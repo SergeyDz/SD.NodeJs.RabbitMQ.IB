@@ -26,6 +26,7 @@
     "sinon": "^1.17.3",
     "amqplib": "latest",
     "bunyan": "latest",
+    "wait.for": "latest",
     "bunyan-elasticsearch": "latest"
   },
   "dependencies": {
@@ -34,6 +35,7 @@
     "express": "^4.13.4",
     "amqplib": "latest",
     "bunyan": "latest",
+    "wait.for": "latest",
     "bunyan-elasticsearch": "latest"
   }
 }
