@@ -9,9 +9,9 @@ var mq = 'amqp://guest:guest@10.1.1.231:5672';
 
 function get(req, res, next) {
     log.info('Get detected');
-    
-    var entities = [];
+
     var open = amqplib.connect(mq);
+
     open.then(function (conn) {
         var ok = conn.createChannel();
         log.info('RabbitMq connection established.');
@@ -27,7 +27,10 @@ function get(req, res, next) {
                 }
             });
         });
-    }).then(null, log.warn);
+    }).then(null, function onerror(err) {
+        log.error(err);
+        res.status(500).json(err);
+    });
 };
 
 ConsumerController.prototype = {
