@@ -18,7 +18,7 @@ var server = http.createServer(function(req, res) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
-        res.socket.setTimeout(20 * 1000); // 2 minute timeout
+        res.socket.setTimeout(120 * 1000); // 2 minute timeout
 
         server.on('timeout', function(timedOutSocket) {
             log.warn('sockert timeout');
