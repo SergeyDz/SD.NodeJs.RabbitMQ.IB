@@ -6,7 +6,12 @@ var q = 'entities';
 var mq = 'amqp://guest:guest@10.1.1.231:5672';
 
 var server = http.createServer(function (req, res) {
-    var query = url.parse(req.url, true).query;
+    var u = url.parse(req.url, true);
+    var query = u.query;
+    
+    if(u.pathname === '/api/consume/events')
+    {
+    
     log.info('Request received. Client=' + (query ? query.client : 'none'));
 
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -57,6 +62,11 @@ var server = http.createServer(function (req, res) {
 
         consumer(conn);
     });
+}
+else
+{
+    res.end('Invalid url. Please use /api/consume/events');
+}
 
 }).listen(9000, '0.0.0.0');
 
