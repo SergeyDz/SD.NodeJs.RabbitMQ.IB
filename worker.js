@@ -12,6 +12,13 @@ var server = http.createServer(function (req, res) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.socket.setTimeout(20 * 1000); // 2 minute timeout
     
+    server.on('timeout', function(timedOutSocket) {
+                log.warn('sockert timeout');
+                connection.close();
+                timedOutSocket.write('socket timed out!');
+                timedOutSocket.end();
+    });
+    
     var connection; 
 
     function consumer(conn) {
@@ -21,13 +28,7 @@ var server = http.createServer(function (req, res) {
                 log.error(err);
                 res.end(JSON.stringify(err));
             }
-
-            res.socket.once('timeout', function () {
-                log.warn('sockert timeout');
-                connection.close();
-                res.end("{ 'Status' : 'Timeout'}");
-            });
-
+            
             ch.assertQueue(q);
             ch.consume(q, function (msg) {
                 if (msg !== null) {
