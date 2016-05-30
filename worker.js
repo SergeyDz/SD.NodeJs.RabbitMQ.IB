@@ -10,7 +10,7 @@ var server = http.createServer(function (req, res) {
     log.info('Request received. Client=' + (query ? query.client : 'none'));
 
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.socket.setTimeout(60 * 1000); // 2 minute timeout
+    res.socket.setTimeout(20 * 1000); // 2 minute timeout
     
     var connection; 
 
