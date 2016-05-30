@@ -18,7 +18,7 @@ var server = http.createServer(function(req, res) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
-        res.socket.setTimeout(120 * 1000); // 2 minute timeout
+        res.socket.setTimeout(20 * 1000); // 2 minute timeout
 
         server.on('timeout', function(timedOutSocket) {
             log.warn('sockert timeout');
@@ -42,9 +42,10 @@ var server = http.createServer(function(req, res) {
                     durable: true
                 });
                 
-                ch.assertQueue('', {
-                    exclusive: true, 
-                    durable: true
+                ch.assertQueue(q + '_' + filter, {
+                    exclusive: false, 
+                    durable: true,
+                    autoDelete: false
                 }, function(err, queue) {
                     ch.bindQueue(queue.queue, q, filter);
 
