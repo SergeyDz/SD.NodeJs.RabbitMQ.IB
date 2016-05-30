@@ -1,11 +1,14 @@
 var http = require('http');
+var url = require('url');
 var amqplib = require('amqplib');
 var log = require('./Log.js').Log;
 var q = 'entities';
 var mq = 'amqp://guest:guest@10.1.1.231:5672';
 
 var server = http.createServer(function (req, res) {
-    log.info('Request received');
+    var query = url.parse(req.url, true).query;
+    log.info('Request received. Client=' + (query ? query.client : 'none'));
+     
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.socket.setTimeout(60 * 1000); // 2 minute timeout
      
@@ -21,6 +24,7 @@ var server = http.createServer(function (req, res) {
                      log.warn('sockert timeout');
                      ch.close();
                      conn.close();
+                     res.end("{ 'Status' : 'Timeout'}");
                  });
                             
             ch.assertQueue(q);
