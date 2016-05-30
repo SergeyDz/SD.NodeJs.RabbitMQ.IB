@@ -50,7 +50,7 @@ var server = http.createServer(function (req, res) {
         log.info('Consumer started');
 
         conn.on("close", function () {
-            console.warn("[AMQP] closed");
+            log.info("[AMQP] closed");
         });
         
         connection = conn;
