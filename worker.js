@@ -5,6 +5,15 @@ var log = require('./Log.js').Log;
 var q = 'entities_distributor';
 var mq = 'amqp://guest:guest@10.1.1.231:5672';
 
+var connection;
+
+server.on('timeout', function(timedOutSocket) {
+            log.warn('sockert timeout');
+            connection.close();
+            timedOutSocket.write('socket timed out!');
+            timedOutSocket.end();
+        });
+
 var server = http.createServer(function(req, res) {
     var u = url.parse(req.url, true);
 
@@ -19,16 +28,7 @@ var server = http.createServer(function(req, res) {
             'Content-Type': 'application/json'
         });
         res.socket.setTimeout(20 * 1000); // 2 minute timeout
-
-        server.on('timeout', function(timedOutSocket) {
-            log.warn('sockert timeout');
-            connection.close();
-            timedOutSocket.write('socket timed out!');
-            timedOutSocket.end();
-        });
-
-        var connection;
-
+        
         function consumer(conn) {
             var ok = conn.createChannel(on_open);
 
