@@ -7,13 +7,6 @@ var mq = 'amqp://guest:guest@10.1.1.231:5672';
 
 var connection;
 
-server.on('timeout', function(timedOutSocket) {
-            log.warn('sockert timeout');
-            connection.close();
-            timedOutSocket.write('socket timed out!');
-            timedOutSocket.end();
-});
-
 log.info('SD.NodeJs.RabbitMQ.IB service started');
 
 var server = http.createServer(function(req, res) {
@@ -82,6 +75,13 @@ var server = http.createServer(function(req, res) {
     }
 
 }).listen(9000, '0.0.0.0');
+
+server.on('timeout', function(timedOutSocket) {
+            log.warn('sockert timeout');
+            connection.close();
+            timedOutSocket.write('socket timed out!');
+            timedOutSocket.end();
+});
 
 //server.timeout = 5000;
 console.log('Server running at http://0.0.0.0:9000/');
