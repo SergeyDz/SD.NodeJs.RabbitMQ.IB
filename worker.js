@@ -52,6 +52,7 @@ var server = http.createServer(function(req, res) {
                         if (msg !== null) {
                             var entity = JSON.parse(msg.content.toString());
                             log.info(entity);
+                            ch.ack(msg);
                             ch.close();
                             return res.end(JSON.stringify(entity));
                         }
