@@ -14,6 +14,8 @@ server.on('timeout', function(timedOutSocket) {
             timedOutSocket.end();
 });
 
+log.info('SD.NodeJs.RabbitMQ.IB service started');
+
 var server = http.createServer(function(req, res) {
     var u = url.parse(req.url, true);
     var query = u.query;
@@ -73,7 +75,6 @@ var server = http.createServer(function(req, res) {
             });
 
             connection = conn;
-
             consumer(conn);
         });
     } else {
