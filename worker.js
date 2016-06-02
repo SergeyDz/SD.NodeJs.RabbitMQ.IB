@@ -12,11 +12,10 @@ server.on('timeout', function(timedOutSocket) {
             connection.close();
             timedOutSocket.write('socket timed out!');
             timedOutSocket.end();
-        });
+});
 
 var server = http.createServer(function(req, res) {
     var u = url.parse(req.url, true);
-
     var query = u.query;
 
     if (u.pathname === '/api/consume/events') {
@@ -53,7 +52,6 @@ var server = http.createServer(function(req, res) {
                         if (msg !== null) {
                             var entity = JSON.parse(msg.content.toString());
                             log.info(entity);
-                            ch.ack(msg);
                             ch.close();
                             return res.end(JSON.stringify(entity));
                         }
